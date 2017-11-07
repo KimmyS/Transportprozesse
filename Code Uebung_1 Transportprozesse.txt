@@ -1,0 +1,23 @@
+function x = GS (A,b)
+
+n = length(b);
+x = rand(n,1);
+E = tril(A);
+H = triu(A)-diag(diag(A));
+U = H * (-1);
+err = Inf;
+i=0;
+
+while max(err) > 0.00001
+    
+    z = x;
+    p = (E\U)*z + E\b;
+    err = sqrt((z-p).^2);
+    x = p;
+    
+    i=i+1;
+    if i == 1000
+        break
+    end
+    
+end
